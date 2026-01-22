@@ -25,6 +25,7 @@ function Admin() {
   const [products, setProducts] = useState<Product[]>([])
   const [loadingProducts, setLoadingProducts] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [stats, setStats] = useState<DashboardStats>({
     totalProducts: 0,
     totalCategories: 0,
@@ -146,9 +147,29 @@ function Admin() {
     return Math.round(((original - discount) / original) * 100)
   }
 
+  const handleNavClick = (tab: 'dashboard' | 'products' | 'settings') => {
+    setActiveTab(tab)
+    setSidebarOpen(false)
+  }
+
   return (
     <div className="admin-page">
-      <aside className="admin-sidebar">
+      {/* Mobile overlay */}
+      <div 
+        className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+      
+      {/* Mobile menu button */}
+      <button 
+        className="mobile-menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label="Menu"
+      >
+        {sidebarOpen ? '✕' : '☰'}
+      </button>
+
+      <aside className={`admin-sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="admin-brand">
           <Link to="/">
             <span className="brand-drop">rinde</span>
@@ -159,7 +180,7 @@ function Admin() {
         <nav className="admin-nav">
           <button
             className={`admin-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => handleNavClick('dashboard')}
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="3" width="7" height="9" />
@@ -167,28 +188,28 @@ function Admin() {
               <rect x="14" y="12" width="7" height="9" />
               <rect x="3" y="16" width="7" height="5" />
             </svg>
-            Dashboard
+            <span>Dashboard</span>
           </button>
           <button
             className={`admin-nav-item ${activeTab === 'products' ? 'active' : ''}`}
-            onClick={() => setActiveTab('products')}
+            onClick={() => handleNavClick('products')}
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
               <path d="M3 6h18" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
-            Productos
+            <span>Productos</span>
           </button>
           <button
             className={`admin-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
-            onClick={() => setActiveTab('settings')}
+            onClick={() => handleNavClick('settings')}
           >
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
               <circle cx="12" cy="12" r="3" />
             </svg>
-            Configuración
+            <span>Configuración</span>
           </button>
         </nav>
 
