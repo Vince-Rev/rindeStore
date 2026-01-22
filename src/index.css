@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:wght@400;600;700&display=swap');
+
+:root {
+  --deep-olive: #003d7a;
+  --lush-fern: #007AFF;
+  --grain-light: #fafafa;
+  --sun-glow: #ffffff;
+  --accent-positive: #007AFF;
+  --bg-soft: #f4f4f4;
+  font-family: 'Space Grotesk', 'Sora', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--grain-light);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: min(1200px, 100%);
+}
+
+a {
+  color: inherit;
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: 3px solid rgba(0, 122, 255, 0.4);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 1rem;
+  }
+}
